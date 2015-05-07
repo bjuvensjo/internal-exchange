@@ -11,25 +11,24 @@ public class ExchangeProcessorEndpoint extends ProcessorEndpoint {
     @UriParam
     private boolean copy;
     @UriParam
-    private String propertyName;
+    private String property;
 
     public ExchangeProcessorEndpoint(String endpointUri, CamelContext camelContext) {
         super(endpointUri, camelContext, null);
         this.copy = true;
-        this.propertyName = endpointUri;
     }
 
     public void setCopy(boolean copy) {
         this.copy = copy;
     }
 
-    public void setPropertyName(String propertyName) {
-        this.propertyName = propertyName;
+    public void setProperty(String property) {
+        this.property = property;
     }
 
     @Override
     protected org.apache.camel.Processor createProcessor() throws Exception {
-        return new ExchangeProcessor(this.getEndpointUri(), getProducerTemplate(), copy, propertyName);
+        return new ExchangeProcessor(this.getEndpointUri(), getProducerTemplate(), copy, property);
     }
 
     private ProducerTemplate getProducerTemplate() {
