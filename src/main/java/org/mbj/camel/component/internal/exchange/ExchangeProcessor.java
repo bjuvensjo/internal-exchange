@@ -21,8 +21,13 @@ public class ExchangeProcessor implements Processor {
     @Override
     public void process(Exchange exchange) throws Exception {
         Exchange internalExchange = send(exchange);
+        
+        if (propertyName != null) {
+            exchange.setProperty(propertyName, internalExchange);
+        } else {
+            exchange.getIn().setBody(internalExchange);
+        }
 
-        exchange.setProperty(propertyName, internalExchange);
     }
 
     private Exchange send(Exchange exchange) {
